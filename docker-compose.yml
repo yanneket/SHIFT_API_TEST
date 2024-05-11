@@ -1,0 +1,17 @@
+version: "3.11"
+
+services:
+  test:
+    build: .
+    command: pytest
+    volumes:
+      - .:/app
+    depends_on:
+      - unicorn
+  unicorn:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
